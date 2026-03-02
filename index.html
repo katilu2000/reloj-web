@@ -2,35 +2,41 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Reloj Actual</title>
+  <title>Reloj Digital</title>
   <style>
-    /* Estilo para toda la página */
+    /* Estilo general */
     body {
       margin: 0;
-      height: 100vh;               /* altura total de la ventana */
-      display: flex;               /* usar flexbox para centrar */
-      justify-content: center;     /* centrar horizontal */
-      align-items: center;         /* centrar vertical */
-      background: linear-gradient(135deg, #1f1c2c, #928dab); /* degradado oscuro */
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #ffffff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       flex-direction: column;
+      background-color: #121212; /* fondo oscuro sólido */
+      font-family: 'Courier New', monospace;
+      color: #00ffcc; /* color del reloj tipo neón */
     }
 
-    /* Contenedor del reloj */
+    h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #00ffcc;
+      text-shadow: 0 0 5px #00ffcc;
+    }
+
     #hora {
       font-size: 96px;
       font-weight: bold;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-      margin: 0;
+      text-shadow: 0 0 20px #00ffcc;
     }
 
-    /* Subtítulo opcional */
-    h1 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      color: #f0f0f0;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+    /* Efecto parpadeo en los segundos */
+    .parpadeo {
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+    .parpadeo.off {
+      opacity: 0.2;
     }
   </style>
 </head>
@@ -44,10 +50,14 @@
       const h = String(ahora.getHours()).padStart(2, '0');
       const m = String(ahora.getMinutes()).padStart(2, '0');
       const s = String(ahora.getSeconds()).padStart(2, '0');
-      document.getElementById('hora').textContent = `${h}:${m}:${s}`;
+
+      // Parpadeo de los segundos
+      const parpadeo = (ahora.getSeconds() % 2 === 0) ? 'off' : '';
+      document.getElementById('hora').innerHTML = `${h}:${m}:<span class="parpadeo ${parpadeo}">${s}</span>`;
     }
-    setInterval(actualizarHora, 1000);
-    actualizarHora(); // actualizar al cargar la página
+
+    setInterval(actualizarHora, 500);
+    actualizarHora();
   </script>
 </body>
 </html>
