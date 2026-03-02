@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reloj Actual</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; }
+    #hora { font-size: 48px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Hora Actual</h1>
+  <div id="hora">--:--:--</div>
+
+  <script>
+    function actualizarHora() {
+      const ahora = new Date();
+      const h = String(ahora.getHours()).padStart(2, '0');
+      const m = String(ahora.getMinutes()).padStart(2, '0');
+      const s = String(ahora.getSeconds()).padStart(2, '0');
+      document.getElementById('hora').textContent = `${h}:${m}:${s}`;
+    }
+    setInterval(actualizarHora, 1000);
+    actualizarHora(); // actualizar al cargar la página
+  </script>
+</body>
+</html>
